@@ -15,7 +15,7 @@ class Request {
     const value = req.body[column];
     const queryText = `SELECT * FROM "${table}" WHERE "${column}"='${value}';`;
     const resp = await query(queryText, res);
-    return resp[0];
+    return await resp[0];
   }
 
   static async findTokenUser(req, res) {
