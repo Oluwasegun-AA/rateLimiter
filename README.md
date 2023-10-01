@@ -9,7 +9,8 @@
 * [Screenshot](#Screenshot)
 
 ## Project-Overview
- This repo exemplifies API rate limiting, using the token bucket algorithm
+ This repo exemplifies API rate limiting, using the token bucket algorithm.
+ the rate limitter implementation can be found in `middlewares/rateLimiter/limitRate`
 
 ## Features
 
@@ -30,13 +31,12 @@ To run this project, you will need to add the following environment variables to
     - `PASS`=`string`(optional)
     - `MAIL_HOST`=`string`(optional)
     - `MAIL_SERVICE`=`string`(optional)
-    - `BASE_URL`=`string`(optional)
     - `PORT`=`string`(optional)
 
 ## Test
 - How To:
     - The rate limiting functioonality is tested by making recurrent request to the endpoints. It has been configured such that
-      the API allows a max of `10 requests` per client withing a duration of `1 mminute`. After 10 successful request Error `429` is retuned. Also,
+      the API allows a max of `10 requests` per client within a duration of `1 mminute`. After 10 successful request Error `429` is retuned. Also,
       the rate limit innformation is returned in the headers.
 
 - Local env test
