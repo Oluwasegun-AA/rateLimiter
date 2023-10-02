@@ -5,7 +5,7 @@ const connectionMessage = (port) => process.stdout.write(`Server started on port
 const catchAllError = app =>
   app.use('*', ({ method, originalUrl }, res) =>
     res.status(statusCodes.badRequest).send({
-      message: `Endpoint ${method} ${originalUrl} does not exist. Please, verify the request is valid`,
+      message: `Endpoint ${method} ${originalUrl} does not exist. Please, verify the request is valid or navigate to api/v1/login`,
     }));
 
 export {
