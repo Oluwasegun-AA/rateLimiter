@@ -14,7 +14,7 @@
 
 ## Features
 
-- [x] Allow for rate limit specification
+- [x] Allows for rate limit specification
 - [x] Allows for limit time range customisation
 - [x] provides hard throttling when rate limit exceeded
 - [x] Extendable
@@ -35,9 +35,8 @@ To run this project, you will need to add the following environment variables to
 
 ## Test
 - How To:
-    - The rate limiting functioonality is tested by making recurrent request to the endpoints. It has been configured such that
-      the API allows a max of `10 requests` per client within a duration of `1 mminute`. After 10 successful request Error `429` is retuned. Also,
-      the rate limit innformation is returned in the headers.
+    - The rate limiting functionality is tested by making recurrent request to the endpoints. It has been configured such that
+      the API allows a max of `10 requests` per client within a duration of `1 mminute`. After 10 successful requests, Error `429` is retuned. Also, the rate limit information is returned in the headers.
 
 - Local env test
     - clone repo
@@ -51,8 +50,8 @@ To run this project, you will need to add the following environment variables to
     - download postman collection 👉🏻 [downlad](https://www.postman.com/oluwasegun-adepoju/workspace/test/collection/5289404-cc14cd2b-1367-4f99-8516-69524e05a036?action=share&creator=5289404&active-environment=5289404-55df7b7a-4fe5-4bb5-9c39-2524ef405b3c) or click run in postman below
     - make request to:
         - `https://ratelimiter-production.up.railway.app/api/v1/auth/signup`
-        - `https://ratelimiter-production.up.railway.appapi/v1/auth/signup`
-        - `https://ratelimiter-production.up.railway.appapi/v1/mail` [![Run in Postman](https://run.pstmn.io/button.svg)](https://www.postman.com/oluwasegun-adepoju/workspace/test/collection/5289404-cc14cd2b-1367-4f99-8516-69524e05a036?action=share&creator=5289404&active-environment=5289404-55df7b7a-4fe5-4bb5-9c39-2524ef405b3c)
+        - `https://ratelimiter-production.up.railway.app/api/v1/auth/signup`
+        - `https://ratelimiter-production.up.railway.app/api/v1/mail` [![Run in Postman](https://run.pstmn.io/button.svg)](https://www.postman.com/oluwasegun-adepoju/workspace/test/collection/5289404-cc14cd2b-1367-4f99-8516-69524e05a036?action=share&creator=5289404&active-environment=5289404-55df7b7a-4fe5-4bb5-9c39-2524ef405b3c)
 
 > Note: the postman requests prepended with the "Local" keyword are to be used for local testing only
 
