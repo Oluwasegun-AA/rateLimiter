@@ -58,7 +58,13 @@ To run this project, you will need to add the following environment variables to
 > Note: the postman requests prepended with the "Local" keyword are to be used for local testing only
 
 ## Screenshot
-<img width="1065" alt="image" src="https://user-images.githubusercontent.com/25525765/236390407-a1aac1cb-2e24-4e9e-bec4-a85fd0dfeb77.png">
+### Unthrottled maiden request headers
+<img width="1065" alt="image" src="https://github.com/Oluwasegun-AA/rateLimiter/assets/25525765/e9794028-592a-42ae-93d6-74e70fe2455a">
+
+
+
+###  Throttled request headers
+<img width="1065" alt="image" src="https://github.com/Oluwasegun-AA/rateLimiter/assets/25525765/3feb8509-6457-4c43-930f-a91dd0af7688">
 
 
 ***
