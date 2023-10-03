@@ -1,0 +1,760 @@
+{
+	"info": {
+		"_postman_id": "cc14cd2b-1367-4f99-8516-69524e05a036",
+		"name": "Rate Limiting",
+		"description": "Overview  \nThis API test exemplifies API rate limiting, using the token bucket algorithm.  \n  \nFeatures  \n\\- Allowss for rate limit specification  \n\\- Allows for limit time range customisation  \n\\- provides hard throttling when rate limit exceeded  \n\\- Extendable  \n  \nEnvironment Variables  \nTo run this project, you will need to add the following environment variables to your .env file if you choose to run locally.  \n\n> if you are using the postman collection with the ephemeral hoosted backend, you do not not need to worry about the env variables, as it has been provisioned \n  \n\n  \n  \n\\- Required  \n\\- DATABASE_URL = string (databaseUrl)  \n\\- SECRET = string (Jwt secret)\n\n\\- Optional  \n\\- MAIL_USER = string (optional)  \n\\- PASS = string (optional)  \n\\- MAIL_HOST = string (optional)  \n\\- MAIL_SERVICE = string (optional)  \n\\- PORT = string (optional)  \n  \nTest- How To:  \nThe rate limiting functionality is tested by making recurrent request to the endpoints. It has been configured such that the API allows a max of **10 requests** per client within a duration of \\`1 mminute\\`. After 10 successful request Error **429** is retuned. Also, the rate limit innformation is returned in the headers.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5289404",
+		"_collection_link": "https://www.postman.com/oluwasegun-adepoju/workspace/test/collection/5289404-cc14cd2b-1367-4f99-8516-69524e05a036?action=share&source=collection_link&creator=5289404"
+	},
+	"item": [
+		{
+			"name": "Local test",
+			"item": [
+				{
+					"name": "Login Local",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"token\", jsonData.data.token);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"segun\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/api/v1/auth/login/",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"segun\",\n    \"password\": \"password\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:5000/api/v1/auth/login/",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"login",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "10"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "9"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 02 Oct 2023 17:09:19 GMT"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "1696266608"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "351"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"15f-MI3iqwu12uVXzYJjleytRziLBm8\""
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"message\": \"User Login Successful\",\n    \"data\": {\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNiYTc4NzNkLTFlYWItNGZjMC1hNjI0LThiMDEzN2Y2NzkyYSIsImVtYWlsIjoib2x1d2FzZWd1bmFkZXBvanUuZ21haWwuY29tIiwidXNlcm5hbWUiOiJzZWd1biIsInJhdGVMaW1pdCI6MTAsImlhdCI6MTY5NjI2NjU1OSwiZXhwIjoxNjk2MjcwMTU5fQ.G_RKdWYm5wQ2igqEU4SQGlVRaeWRqTr6hQ0tkDWZilA\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Signup local",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"testUser\",\n    \"password\": \"password\",\n    \"firstName\": \"firstName\",\n    \"lastName\": \"lastName\",\n    \"email\": \"testEmail@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/api/v1/auth/signup",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Signup response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"oluwasegun\",\n    \"password\": \"password\",\n    \"firstName\": \"Oluwasegun\",\n    \"lastName\": \"Adepoju\",\n    \"email\": \"oluwasegunadepoju@gmail.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:5000/api/v1/auth/signup",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "10"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 02 Oct 2023 17:09:49 GMT"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "1696266608"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "361"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"169-jhP77qL/EogxCUUAynjSWPhDW8k\""
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 201,\n    \"message\": \"User created Successfully\",\n    \"data\": {\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ4YTcyMjVhLTkzOGYtNGQwZS1iMGJmLTJjNWM0ODM0ZTRiNCIsInVzZXJuYW1lIjoib2x1d2FzZWd1biIsImVtYWlsIjoib2x1d2FzZWd1bmFkZXBvanVAZ21haWwuY29tIiwicmF0ZUxpbWl0IjoxMCwiaWF0IjoxNjk2MjY2NTg5LCJleHAiOjE2OTYyNzAxODl9.R3NFiNdK-0EZL7yCPFDI7JE8gBaVqcAVFduicE8G8Ow\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Send Message local",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"adexshege@gmail.com\",\n  \"message\": \"Hello\",\n  \"subject\": \"Hello World\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/api/v1/mail",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"mail"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Send Message response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-access-token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"adexshege@gmail.com\",\n  \"message\": \"Hello\",\n  \"subject\": \"Hello World\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:5000/api/v1/mail",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"mail"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "10"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "7"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 02 Oct 2023 17:13:39 GMT"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "1696266848"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "49"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"31-qO4ZKf58HoK0wV4rdf3jmmTbE54\""
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"message\": \"Mail Sent Successfully\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Cloud test (Railway Hosted)",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"token\", jsonData.data.token);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"segun\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ratelimiter-production-576d.up.railway.app/api/v1/auth/login",
+							"protocol": "https",
+							"host": [
+								"ratelimiter-production-576d",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"segun\",\n    \"password\": \"password\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://ratelimiter-production-576d.up.railway.app/api/v1/auth/login",
+									"protocol": "https",
+									"host": [
+										"ratelimiter-production-576d",
+										"up",
+										"railway",
+										"app"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "x-ratelimit-limit",
+									"value": "10"
+								},
+								{
+									"key": "x-ratelimit-remaining",
+									"value": "9"
+								},
+								{
+									"key": "date",
+									"value": "Mon, 02 Oct 2023 17:32:34 GMT"
+								},
+								{
+									"key": "x-ratelimit-reset",
+									"value": "1696268006"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "content-length",
+									"value": "351"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"15f-ZxNuMH7CCA9qZ5txxODZ/m93sUI\""
+								},
+								{
+									"key": "server",
+									"value": "railway"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"message\": \"User Login Successful\",\n    \"data\": {\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhkNWY0MjkxLWVmMWItNGY2NS04ZmFmLTFhNzUwMmUyZDU2YSIsImVtYWlsIjoib2x1d2FzZWd1bmFkZXBvanUuZ21haWwuY29tIiwidXNlcm5hbWUiOiJzZWd1biIsInJhdGVMaW1pdCI6MTAsImlhdCI6MTY5NjI2Nzk1NCwiZXhwIjoxNjk2MjcxNTU0fQ.cGhx6JutNSTtBNuUMI7GRwdGyZCxq5Wwyx4i1moD7jc\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"testUser\",\n    \"password\": \"password\",\n    \"firstName\": \"firstName\",\n    \"lastName\": \"lastName\",\n    \"email\": \"testEmail@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ratelimiter-production-576d.up.railway.app/api/v1/auth/signup",
+							"protocol": "https",
+							"host": [
+								"ratelimiter-production-576d",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Signup response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"alex\",\n    \"password\": \"password\",\n    \"firstName\": \"Oluwasegu\",\n    \"lastName\": \"Adepoj\",\n    \"email\": \"oluwasegunadepo@gmail.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://ratelimiter-production-576d.up.railway.app/api/v1/auth/signup",
+									"protocol": "https",
+									"host": [
+										"ratelimiter-production-576d",
+										"up",
+										"railway",
+										"app"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "x-ratelimit-limit",
+									"value": "10"
+								},
+								{
+									"key": "x-ratelimit-remaining",
+									"value": "9"
+								},
+								{
+									"key": "date",
+									"value": "Mon, 02 Oct 2023 17:35:06 GMT"
+								},
+								{
+									"key": "x-ratelimit-reset",
+									"value": "1696268126"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "content-length",
+									"value": "351"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"15f-3p+uQ/b+D3/iYZ3pMcXN+c0Y1bw\""
+								},
+								{
+									"key": "server",
+									"value": "railway"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 201,\n    \"message\": \"User created Successfully\",\n    \"data\": {\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMTM1YWVmLTdmMjMtNGIzNC1iZDUxLTY4NTc4NjlhNGFhOCIsInVzZXJuYW1lIjoiYWxleCIsImVtYWlsIjoib2x1d2FzZWd1bmFkZXBvQGdtYWlsLmNvbSIsInJhdGVMaW1pdCI6MTAsImlhdCI6MTY5NjI2ODEwNywiZXhwIjoxNjk2MjcxNzA3fQ.N94n0e9lwawmg03qIDvy-YyqtoPdhyBOodp9Mgeci3w\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Send Message",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"adexshege@gmail.com\",\n  \"message\": \"Hello\",\n  \"subject\": \"Hello World\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ratelimiter-production-576d.up.railway.app/api/v1/mail",
+							"protocol": "https",
+							"host": [
+								"ratelimiter-production-576d",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"v1",
+								"mail"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Send Message Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-access-token",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"adexshege@gmail.com\",\n  \"message\": \"Hello\",\n  \"subject\": \"Hello World\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://ratelimiter-production-576d.up.railway.app/api/v1/mail",
+									"protocol": "https",
+									"host": [
+										"ratelimiter-production-576d",
+										"up",
+										"railway",
+										"app"
+									],
+									"path": [
+										"api",
+										"v1",
+										"mail"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "x-ratelimit-limit",
+									"value": "10"
+								},
+								{
+									"key": "x-ratelimit-remaining",
+									"value": "9"
+								},
+								{
+									"key": "date",
+									"value": "Mon, 02 Oct 2023 17:35:43 GMT"
+								},
+								{
+									"key": "x-ratelimit-reset",
+									"value": "1696268186"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "content-length",
+									"value": "49"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"31-qO4ZKf58HoK0wV4rdf3jmmTbE54\""
+								},
+								{
+									"key": "server",
+									"value": "railway"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"message\": \"Mail Sent Successfully\"\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}
