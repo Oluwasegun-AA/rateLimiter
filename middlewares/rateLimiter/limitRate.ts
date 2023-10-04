@@ -58,7 +58,7 @@ export const rateLimitter = (
 };
 
 
-const generateClientkey =(request: Request): string =>{
+const generateClientkey = (request: Request): string => {
   if (!request.ip) console.error('ip is undefined');
     return request.ip;
 }

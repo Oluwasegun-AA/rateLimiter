@@ -12,4 +12,7 @@ serverMiddleWares(app);
 
 catchAllError(app);
 
-app.listen(PORT, ()=> connectionMessage(PORT));
+const server = app.listen(PORT, ()=> connectionMessage(PORT));
+
+// export app for testing purpose
+export {server, app};

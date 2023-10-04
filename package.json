@@ -7,6 +7,7 @@
   "author": "Oluwasegun Adepoju",
   "license": "ISC",
   "scripts": {
+    "test": " yarn build && mocha dist/test/*.js --exit",
     "start": "yarn build && concurrently 'yarn seed' 'node dist/server/app.js'",
     "start:dev": "nodemon dist/server/app.js --watch",
     "build": "yarn clear && tsc",
@@ -32,14 +33,19 @@
   },
   "devDependencies": {
     "@types/express": "4.17.17",
+    "@types/mocha": "10.0.2",
     "@types/node": "18.16.3",
+    "chai": "4.3.10",
     "eslint": "^8.39.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "i": "0.3.7",
+    "mocha": "10.2.0",
     "nodemon": "^2.0.22",
     "npm": "9.6.5",
     "prettier": "^2.8.8",
     "rimraf": "^5.0.0",
+    "sinon": "16.0.0",
+    "supertest": "6.3.3",
     "tslib": "2.5.0",
     "typescript": "^5.0.4"
   }

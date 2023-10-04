@@ -35,6 +35,7 @@ To run this project, you will need to add the following environment variables to
 
 ## Test
 - How To:
+    - Automated test can be run using `yarn test` (this will require env variables)
     - The rate limiting functionality is tested by making recurrent request to the endpoints. It has been configured such that
       the API allows a max of `10 requests` per client within a duration of `1 mminute`. After 10 successful requests, Error `429` is retuned. Also, the rate limit information is returned in the headers.
 
