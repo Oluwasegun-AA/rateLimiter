@@ -26,12 +26,6 @@ To run this project, you will need to add the following environment variables to
 - Required
     - `DATABASE_URL`=`string` (databaseUrl)
     - `SECRET`=`string` (Jwt secret)
-- Optional
-    - `MAIL_USER`=`string` (optional)
-    - `PASS`=`string`(optional)
-    - `MAIL_HOST`=`string`(optional)
-    - `MAIL_SERVICE`=`string`(optional)
-    - `PORT`=`string`(optional)
 
 ## Test
 - How To:
