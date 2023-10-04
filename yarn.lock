@@ -2964,11 +2964,6 @@ mocha@10.2.0:
     yargs-parser "20.2.4"
     yargs-unparser "2.0.0"
 
-mocka@0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/mocka/-/mocka-0.0.1.tgz#022bd25333d7b771d5e6dd5ca8b177720dfbc917"
-  integrity sha512-7VnfkJ+XQB+ifjQjuAczRZBWgH1IN/aG1Xz+gG339kbngekZRNQLnGvGPob5vbNNieKh5L1cUGRFpJH8mUzNEg==
-
 morgan@^1.10.0:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/morgan/-/morgan-1.10.0.tgz#091778abc1fc47cd3509824653dae1faab6b17d7"
